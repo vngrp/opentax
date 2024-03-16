@@ -2,10 +2,10 @@ package eu.opentax.system.nl
 
 import eu.opentax.domain.TaxYear2023
 import eu.opentax.domain.TaxYear2024
-import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class NettoInkomen2024Test {
+class InkomstenbelastingTest {
     private val testCases2023 = listOf(
         BelastbaarInkomenTestCase(200_000.00, 200_000.00, 110_181.00),
         BelastbaarInkomenTestCase(0.00, 0.00, 0.00),
@@ -20,7 +20,7 @@ class NettoInkomen2024Test {
     fun `Netto inkomen berekenen in 2023`(): Unit = with(TaxYear2023) {
         testCases2023.forEach {
             // Arrange
-            val box1 = Inkomstenbelasting(it.brutoloon)
+            val box1 = Inkomstenbelasting(BelastbaarInkomen(it.brutoloon))
 
             // Assert
             assertEquals(it.nettoloon, it.brutoloon - box1.calculate())
@@ -31,7 +31,7 @@ class NettoInkomen2024Test {
     fun `Netto inkomen berekenen in 2024`(): Unit = with(TaxYear2024) {
         testCases2024.forEach {
             // Arrange
-            val box1 = Inkomstenbelasting(it.brutoloon)
+            val box1 = Inkomstenbelasting(BelastbaarInkomen(it.brutoloon))
 
             // Assert
             assertEquals(it.nettoloon, it.brutoloon - box1.calculate())
